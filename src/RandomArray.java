@@ -7,19 +7,24 @@ public class RandomArray {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = randomNumber(n);
         }
-        int count = 1;
-        while (count > 0) {
-            count = 0;
+        boolean check = true;
+        while (check) {
+            check = false;
             bubbleSort(arr);
+            loopChange:
             for (int i = 0; i < arr.length; i++) {
                 for (int j = i + 1; j < arr.length; j++) {
                     if (arr[i] == arr[j]) {
                         arr[i] = randomNumber(n);
-                        count++;
+                        check = true;
+                        break loopChange;
+                    } else if (arr[i] < arr[j]) {
+                        break;
                     }
                 }
             }
         }
+
         return arr;
     }
 
@@ -41,7 +46,7 @@ public class RandomArray {
         }
     }
 
-    public static void printMass(int[] arr) {
+    public static void printArray(int[] arr) {
         int i = 0;
         for (int xxx : arr) {
             i++;
@@ -49,32 +54,31 @@ public class RandomArray {
         }
     }
 
-    public static int toPrint() {
+    public static int readUserInput() {
         System.out.println("This program prints an array of dimension N, filled with random numbers.");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter number from 1 to 100: ");
-        String string = scanner.nextLine();
-        scanner.close();
-        try {
-
-            int xxx = Integer.parseInt(string);
-            if (xxx > 0) {
-                return xxx;
-            } else
-                System.out.println("Sorry. Restart the program and try again!");
-            System.exit(0);
-        } catch (NumberFormatException e) {
-            System.out.println("Sorry. Restart the program and try again!");
-            System.exit(0);
+        while (scanner.hasNextLine()) {
+            String string = scanner.nextLine();
+            try {
+                int xxx = Integer.parseInt(string);
+                if (xxx > 0) {
+                    scanner.close();
+                    return xxx;
+                } else
+                    System.out.println("Sorry. Try again!");
+            } catch (NumberFormatException e) {
+                System.out.println("Sorry. Try again!");
+            }
         }
-        return 0;
+        return -1;
     }
 
     public static void main(String[] args) {
 
-        int n = toPrint();
+        int n = readUserInput();
         int[] arrGo = randomArray(n);
-        printMass(arrGo);
+        printArray(arrGo);
 
     }
 }
