@@ -7,24 +7,23 @@ public class RandomArray {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = randomNumber(n);
         }
-        boolean check = true;
-        while (check) {
-            check = false;
+        boolean valid = true;
+        while (valid) {
+            valid = false;
             bubbleSort(arr);
-            loopChange:
+            loopExit:
             for (int i = 0; i < arr.length; i++) {
                 for (int j = i + 1; j < arr.length; j++) {
                     if (arr[i] == arr[j]) {
                         arr[i] = randomNumber(n);
-                        check = true;
-                        break loopChange;
+                        valid = true;
+                        break loopExit;
                     } else if (arr[i] < arr[j]) {
                         break;
                     }
                 }
             }
         }
-
         return arr;
     }
 
@@ -35,12 +34,17 @@ public class RandomArray {
     }
 
     public static void bubbleSort(int[] arr) {
+        loopExit:
         for (int i = arr.length - 1; i > 0; i--) {
+            boolean valid = true;
             for (int j = 0; j < i; j++) {
                 if (arr[j] > arr[j + 1]) {
+                    valid = false;
                     int tmp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = tmp;
+                } else if (valid && j == i - 1) {
+                    break loopExit;
                 }
             }
         }
@@ -62,7 +66,7 @@ public class RandomArray {
             String string = scanner.nextLine();
             try {
                 int xxx = Integer.parseInt(string);
-                if (xxx > 0) {
+                if (xxx > 0 && xxx < 101) {
                     scanner.close();
                     return xxx;
                 } else
@@ -75,10 +79,8 @@ public class RandomArray {
     }
 
     public static void main(String[] args) {
-
         int n = readUserInput();
         int[] arrGo = randomArray(n);
         printArray(arrGo);
-
     }
 }
