@@ -32,7 +32,6 @@ public class RandomArray {
     }
 
     public static void bubbleSort(int[] arr) {
-        loopExit:
         for (int i = arr.length - 1; i > 0; i--) {
             boolean valid = true;
             for (int j = 0; j < i; j++) {
