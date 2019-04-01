@@ -7,21 +7,19 @@ public class RandomArray {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = randomNumber(n);
         }
-        boolean valid = true;
-        while (valid) {
-            valid = false;
+        boolean reChange = true;
+        while (reChange) {
+            reChange = false;
             bubbleSort(arr);
-            loopExit:
-            for (int i = 0; i < arr.length; i++) {
-                for (int j = i + 1; j < arr.length; j++) {
-                    if (arr[i] == arr[j]) {
-                        arr[i] = randomNumber(n);
-                        valid = true;
-                        break loopExit;
-                    } else if (arr[i] < arr[j]) {
-                        break;
-                    }
+            for (int i = 0; i + 1 < arr.length; i++) {
+                if (arr[i] == arr[i + 1]) {
+                    arr[i] = randomNumber(n);
+                    reChange = true;
+                    break;
                 }
+            }
+            if (!reChange) {
+                break;
             }
         }
         return arr;
@@ -43,9 +41,10 @@ public class RandomArray {
                     int tmp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = tmp;
-                } else if (valid && j == i - 1) {
-                    break loopExit;
                 }
+            }
+            if (valid) {
+                break;
             }
         }
     }
@@ -66,7 +65,7 @@ public class RandomArray {
             String string = scanner.nextLine();
             try {
                 int xxx = Integer.parseInt(string);
-                if (xxx > 0 && xxx < 101) {
+                if (xxx > 0 && xxx <= 100) {
                     scanner.close();
                     return xxx;
                 } else
